@@ -195,6 +195,20 @@ func (p *Player) GetPosition() bool {
 	return true
 }
 
+// Returns value instead of writing it.
+func (p *Player) getPosition() (int64, bool) {
+	pos, err := p.Player.GetProperty(INTERFACE + ".Player.Position")
+	if err != nil {
+		return 0, false
+	}
+	switch position := pos.Value().(type) {
+	case int64:
+		return position, true
+	default:
+		return 0, false
+	}
+}
+
 // StringPosition figures out the track position in MM:SS/MM:SS, interpolating the value if necessary.
 func (p *Player) StringPosition() string {
 	// position is in microseconds so we prob need int64 to be safe
@@ -209,8 +223,11 @@ func (p *Player) StringPosition() string {
 	if length == "" {
 		return ""
 	}
-	p.GetPosition()
-	position := µsToString(p.Position)
+	pos, ok := p.getPosition()
+	if !ok {
+		return ""
+	}
+	position := µsToString(pos)
 	if position == "" {
 		return ""
 	}
@@ -218,6 +235,7 @@ func (p *Player) StringPosition() string {
 		np := p.Position + int64(p.poll*1000000)
 		position = µsToString(np)
 	}
+	p.Position = pos
 	return position + "/" + length
 }
 
