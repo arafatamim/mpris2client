@@ -220,9 +220,12 @@ func (p *Player) StringPosition() string {
 	// position is in microseconds so we prob need int64 to be safe
 	v := p.metadata["mpris:length"].Value()
 	var l int64
-	if v != nil {
-		l = v.(int64)
-	} else {
+	switch val := v.(type) {
+	case int64:
+		l = val
+	case uint64:
+		l = int64(val)
+	default:
 		return ""
 	}
 	length := µsToString(l)
