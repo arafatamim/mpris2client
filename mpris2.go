@@ -167,6 +167,8 @@ func (p *Player) Refresh() (err error) {
 	switch length := p.metadata["mpris:length"].Value().(type) {
 	case int64:
 		p.Length = int(length) / 1000000
+	case uint64:
+		p.Length = int(length) / 1000000
 	default:
 		p.Length = 0
 	}
@@ -188,6 +190,8 @@ func (p *Player) GetPosition() bool {
 	switch position := pos.Value().(type) {
 	case int64:
 		p.Position = position
+	case uint64:
+		p.Position = int64(position)
 	default:
 		p.Position = 0
 		return false
@@ -204,6 +208,8 @@ func (p *Player) getPosition() (int64, bool) {
 	switch position := pos.Value().(type) {
 	case int64:
 		return position, true
+	case uint64:
+		return int64(position), true
 	default:
 		return 0, false
 	}
