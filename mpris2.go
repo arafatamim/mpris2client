@@ -228,12 +228,18 @@ func (p *Player) StringPosition() string {
 	default:
 		return ""
 	}
+	if l == 0 {
+		return ""
+	}
 	length := µsToString(l)
 	if length == "" {
 		return ""
 	}
 	pos, ok := p.getPosition()
 	if !ok {
+		return ""
+	}
+	if pos == 0 {
 		return ""
 	}
 	position := µsToString(pos)
