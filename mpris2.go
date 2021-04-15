@@ -216,7 +216,8 @@ func (p *Player) getPosition() (int64, bool) {
 }
 
 // StringPosition figures out the track position in MM:SS/MM:SS, interpolating the value if necessary.
-func (p *Player) StringPosition() string {
+// You can also specify a separator.
+func (p *Player) StringPosition(separator string) string {
 	// position is in microseconds so we prob need int64 to be safe
 	v := p.metadata["mpris:length"].Value()
 	var l int64
@@ -251,7 +252,7 @@ func (p *Player) StringPosition() string {
 		position = µsToString(np)
 	}
 	p.Position = pos
-	return position + "/" + length
+	return position + separator + length
 }
 
 // Next requests the next track.
