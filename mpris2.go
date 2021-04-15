@@ -264,6 +264,9 @@ func (p *Player) Previous() { p.Player.Call(INTERFACE+".Player.Previous", 0) }
 // Toggle requests play/pause
 func (p *Player) Toggle() { p.Player.Call(INTERFACE+".Player.PlayPause", 0) }
 
+// Requests stopping the current track
+func (p *Player) Stop() { p.Player.Call(INTERFACE+".Player.Stop", 0) }
+
 type Message struct {
 	Name, Value string
 }
