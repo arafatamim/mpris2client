@@ -179,7 +179,7 @@ func µsToString(µs int64) string {
 	seconds := int(µs / 1000000)
 	minutes := int(seconds / 60)
 	seconds -= minutes * 60
-	return fmt.Sprintf("%02d:%02d", minutes, seconds)
+	return fmt.Sprintf("%d:%02d", minutes, seconds)
 }
 
 func (p *Player) GetPosition() bool {
