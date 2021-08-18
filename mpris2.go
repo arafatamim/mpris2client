@@ -176,10 +176,18 @@ func (p *Player) Refresh() (err error) {
 }
 
 func µsToString(µs int64) string {
-	seconds := int(µs / 1000000)
-	minutes := int(seconds / 60)
+	seconds := µs / 1000000
+	minutes := seconds / 60
+	hours := minutes / 60
+	// days := hours / 24
 	seconds -= minutes * 60
-	return fmt.Sprintf("%d:%02d", minutes, seconds)
+	minutes -= hours * 60
+	// hours -= days * 24
+	if hours == 0 {
+		return fmt.Sprintf("%d:%02d", minutes, seconds)
+	} else {
+		return fmt.Sprintf("%d:%02d:%02d", hours, minutes, seconds)
+	}
 }
 
 func (p *Player) GetPosition() bool {
