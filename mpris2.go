@@ -24,12 +24,14 @@ const (
 var knownPlayers = map[string]string{
 	"plasma-browser-integration": "Browser",
 	"noson":                      "Noson",
+	"celluloid":                  "Celluloid",
 }
 
 var knownBrowsers = map[string]string{
 	"mozilla":  "Firefox",
 	"chrome":   "Chrome",
 	"chromium": "Chromium",
+	"vivaldi":  "Vivaldi",
 }
 
 // Player represents an active media player.
